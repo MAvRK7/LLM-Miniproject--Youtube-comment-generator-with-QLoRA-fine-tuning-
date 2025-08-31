@@ -1,33 +1,123 @@
-# LLM-Miniproject--Youtube-comment-generator-with-QLoRA-fine-tuning-
-This is a YouTube reply generator which uses the Mistral-7b-instruct as the base model. 
+# 💬 LLM Mini‑Project — YouTube Comment Generator with QLoRA Fine‑Tuning
 
-For the more advanced RAG based model, visit: https://github.com/MAvRK7/Mini-project-YouTube-comment-generator-improved-with-RAG
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)]()
+[![Framework](https://img.shields.io/badge/Framework-Transformers%20%7C%20PEFT-orange)]()
+[![Model](https://img.shields.io/badge/Model-Mistral--7B--Instruct-red.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 
-QLoRA has been used to fine tune this model. All the libraries and dataset used are from open sources like hugging face, the dataset used to train the reply generator is shawhin/shawgpt-youtube-comments
+---
 
-Introduction
+## 📌 Overview
+This project implements a **YouTube reply generator** powered by the **Mistral‑7B‑Instruct** large language model, fine‑tuned using **QLoRA** for efficient adaptation on consumer hardware.
 
-The YouTube Reply Generator is designed to provide automated, contextually relevant replies to YouTube comments. It leverages the Mistral-7b-instruct model, a powerful language model, and fine-tunes it using QLoRA to optimize its performance for generating replies.
+The model generates **contextually relevant, human‑like replies** to YouTube comments, trained on a curated dataset of real comment–reply pairs.  
+For an **enhanced RAG‑based version**, see the [improved repository](https://github.com/MAvRK7/Mini-project-YouTube-comment-generator-improved-with-RAG).
 
-Features
+---
 
-Base Model: Uses the Mistral-7b-instruct model.
-Fine-Tuning: Implemented using QLoRA to enhance model performance.
-Dataset: Trained on the shawhin/shawgpt-youtube-comments dataset from Hugging Face.
-Libraries: Utilizes open-source libraries including transformers and peft.
-Installation
+## 🧠 Key Features
+- **Base Model**: [Mistral‑7B‑Instruct](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1) — instruction‑tuned LLM for high‑quality text generation.
+- **Fine‑Tuning Method**: [QLoRA](https://arxiv.org/abs/2305.14314) — memory‑efficient low‑rank adaptation for large models.
+- **Dataset**: [`shawhin/shawgpt-youtube-comments`](https://huggingface.co/datasets/shawhin/shawgpt-youtube-comments) from Hugging Face.
+- **Libraries**: `transformers`, `peft`, `datasets`, `bitsandbytes` for 4‑bit quantization.
+- **Open Source**: Fully reproducible pipeline with publicly available tools and data.
 
-To get started with the project, clone the repository and install the required dependencies. The primary libraries used include transformers, peft, and datasets.
+---
 
-Usage
+## 🛰 Dataset
+- **Source**: Hugging Face dataset `shawhin/shawgpt-youtube-comments`
+- **Content**: YouTube comments paired with human‑written replies
+- **Preprocessing**:
+  - Text cleaning (removing emojis, HTML tags, excessive whitespace)
+  - Tokenization with model‑specific tokenizer
+  - Train/validation split for fine‑tuning
 
-The YouTube Reply Generator can be used to generate replies to comments on YouTube. By inputting a comment, the model processes it and generates an appropriate response.
+---
 
-Training
+## 🧪 Methodology
 
-The model has been fine-tuned using the QLoRA method. The training process involves:
+### **1. Data Preparation**
+- Load dataset from Hugging Face
+- Apply preprocessing and tokenization
+- Format into instruction–response pairs for supervised fine‑tuning
 
-Data Collection: Using the shawhin/shawgpt-youtube-comments dataset.
-Data Tokenization: Preparing the dataset for training.
-Model Preparation: Setting up the Mistral-7b-instruct model for fine-tuning.
-Training Process: Implementing the QLoRA method to fine-tune the model, optimizing it for generating YouTube comment replies.
+### **2. Model Setup**
+- Load **Mistral‑7B‑Instruct** in 4‑bit precision using `bitsandbytes`
+- Apply **QLoRA adapters** via `peft` for parameter‑efficient fine‑tuning
+
+### **3. Training**
+- **Loss Function**: Cross‑entropy over token predictions
+- **Optimizer**: AdamW with weight decay
+- **Learning Rate Schedule**: Cosine decay with warmup
+- **Batch Size**: Optimized for GPU memory via gradient accumulation
+- **Epochs**: Tuned for convergence without overfitting
+
+### **4. Inference**
+- Input: Raw YouTube comment text
+- Output: Contextually relevant, stylistically appropriate reply
+- Decoding: Beam search or nucleus sampling for diversity control
+
+---
+
+## 📊 Example Output
+
+**Input Comment**:  
+> "This tutorial was super helpful, thanks!"
+
+**Generated Reply**:  
+> "Glad you found it useful! Let me know if you have any questions or need more examples."
+
+---
+
+## 🚀 Key Takeaways
+- **QLoRA** enables fine‑tuning of large models like Mistral‑7B on a single GPU without sacrificing quality.
+- Domain‑specific fine‑tuning yields **more relevant and engaging replies** than generic LLMs.
+- The pipeline is **fully reproducible** and adaptable to other conversational domains.
+
+---
+
+## 📂 Repository Structure
+- `train.py` — Fine‑tuning script with QLoRA integration
+- `inference.py` — Script for generating replies from trained model
+- `requirements.txt` — Python dependencies
+- `notebooks/` — Jupyter notebooks for experimentation
+
+---
+
+## 💡 Skills Demonstrated
+- Large Language Model fine‑tuning (QLoRA, PEFT)
+- Efficient training with 4‑bit quantization
+- Dataset preprocessing for conversational AI
+- Hugging Face `transformers` & `datasets` integration
+- Deployment‑ready inference pipeline
+
+---
+
+## 🛠 Installation
+
+**Prerequisites**:
+- Python 3.10+
+- CUDA‑enabled GPU (for training)
+
+---
+
+## Workflow Diagram
+
+<img width="210" height="630" alt="image" src="https://github.com/user-attachments/assets/a9d83be3-cad2-4d79-b690-4edc2b82940c" />
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please open an issue or submit a pull request.
+
+---
+
+## 🙏 Acknowledgments
+- Mistral AI for the base model
+
+- Hugging Face for datasets and libraries
+
+- shawhin/shawgpt-youtube-comments dataset
+
+
+
